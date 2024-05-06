@@ -6,7 +6,9 @@
    border: none;
    cursor: pointer;
    text-align: start;
-   display: block;
+   display: flex;
+   flex-direction: column;
+   gap: 12px;
    width: 100%;
 }
 

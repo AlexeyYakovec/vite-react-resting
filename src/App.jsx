@@ -4,12 +4,12 @@ import LeftPanel from "./layout/LeftPanel/LeftPanel";
 import Body from "./layout/Body/Body";
 
 // components
-// import Button from "./components/Button/Button";
 import CardButton from "./components/CardButton/CardButton";
 import JournalItem from "./components/JournalItem/JournalItem";
 import Header from "./components/Header/Header";
 import JournalList from "./components/JournalList/JournalList";
 import JournalAddButton from "./components/JournalAddButton/JournalAddButton";
+import JournalForm from "./components/JournalForm/JournalForm";
 
 function App() {
    const data = [
@@ -24,6 +24,7 @@ function App() {
          text: "Думал что времени очень много....",
       },
    ];
+
    return (
       <div className="app">
          <LeftPanel>
@@ -46,7 +47,9 @@ function App() {
                </CardButton>
             </JournalList>
          </LeftPanel>
-         <Body>Body</Body>
+         <Body>
+            <JournalForm />
+         </Body>
       </div>
    );
 }

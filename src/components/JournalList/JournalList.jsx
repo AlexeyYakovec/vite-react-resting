@@ -1,4 +1,3 @@
-import { Children } from "react";
 import "./JournalList.css";
 
 const JournalList = ({ children }) => {
