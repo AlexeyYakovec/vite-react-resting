@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import "./App.css";
 // layout
 import LeftPanel from "./layout/LeftPanel/LeftPanel";
@@ -12,7 +14,7 @@ import JournalAddButton from "./components/JournalAddButton/JournalAddButton";
 import JournalForm from "./components/JournalForm/JournalForm";
 
 function App() {
-   const data = [
+   const INITIAL_DATA = [
       {
          title: "Подготовка к обновлению ресурсов",
          text: "Горные походы открывают удивительные природные ландшафты",
@@ -25,30 +27,39 @@ function App() {
       },
    ];
 
+   const [items, setItems] = useState(INITIAL_DATA);
+   const addItem = (item) => {
+      setItems((prevItems) => [
+         ...prevItems,
+         {
+            title: item.title,
+            text: item.text,
+            date: new Date(item.date),
+         },
+      ]);
+   };
+
    return (
       <div className="app">
          <LeftPanel>
             <Header />
             <JournalAddButton />
             <JournalList>
-               <CardButton>
-                  <JournalItem
-                     title={data[0].title}
-                     text={data[0].text}
-                     date={data[0].date}
-                  />
-               </CardButton>
-               <CardButton>
-                  <JournalItem
-                     title={data[1].title}
-                     text={data[1].text}
-                     date={data[1].date}
-                  />
-               </CardButton>
+               {items.map((item, id) => {
+                  return (
+                     <CardButton key={id}>
+                        <JournalItem
+                           title={item.title}
+                           text={item.text}
+                           date={item.date}
+                        />
+                     </CardButton>
+                  );
+               })}
             </JournalList>
          </LeftPanel>
          <Body>
-            <JournalForm />
+            <JournalForm onSubmit={addItem} />
          </Body>
       </div>
    );
