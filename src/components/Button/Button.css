@@ -6,9 +6,10 @@
    font-family: inherit;
    cursor: pointer;
    transition: background 0.25s;
+   border: none;
 }
 .button:hover {
-   border-color: #222079;
+   background: #222079;
 }
 
 .accent {
