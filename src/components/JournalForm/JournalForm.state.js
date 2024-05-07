@@ -5,9 +5,10 @@ export const INITIAL_STATE = {
       text: true,
    },
    values: {
-      title: undefined,
-      date: undefined,
-      text: undefined,
+      title: "",
+      date: "",
+      text: "",
+      tag: "",
    },
    isFormReadyToSubmit: false,
 };
@@ -17,11 +18,11 @@ export function formReducer(state, action) {
       case "RESET_VALIDITY":
          return { ...state, isValid: INITIAL_STATE.isValid };
       case "SUBMIT": {
-         const titleValidity = action.payload.title?.trim().length;
-         const textValidity = action.payload.text?.trim().length;
-         const dateValidity = action.payload.date;
+         const titleValidity = state.values.title?.trim().length;
+         const textValidity = state.values.text?.trim().length;
+         const dateValidity = state.values.date;
          return {
-            values: action.payload,
+            ...state,
             isValid: {
                title: titleValidity,
                text: textValidity,
@@ -30,8 +31,13 @@ export function formReducer(state, action) {
             isFormReadyToSubmit: titleValidity && textValidity && dateValidity,
          };
       }
+      case "CLEAR":
+         return {
+            ...state,
+            values: INITIAL_STATE.values,
+            isFormReadyToSubmit: false,
+         };
+      case "SET_VALUE":
+         return { ...state, values: { ...state.values, ...action.payload } };
    }
 }
-
-// 1. state - начальное состояние
-// 2. action - то что нужно сделать

@@ -28,15 +28,22 @@ const JournalForm = ({ onSubmit }) => {
    useEffect(() => {
       if (isFormReadyToSubmit) {
          onSubmit(values);
+         dispatchForm({ type: "CLEAR" });
       }
-   }, [isFormReadyToSubmit]);
+   }, [isFormReadyToSubmit, values, onSubmit]);
 
    const addJournalItem = (e) => {
       e.preventDefault();
-      const formData = new FormData(e.target);
-      const formProps = Object.fromEntries(formData);
-      console.log(`formProps: `, formProps);
-      dispatchForm({ type: "SUBMIT", payload: formProps });
+      // const formData = new FormData(e.target);
+      // const formProps = Object.fromEntries(formData);
+      dispatchForm({ type: "SUBMIT" });
+   };
+
+   const onChange = (e) => {
+      dispatchForm({
+         type: "SET_VALUE",
+         payload: { [e.target.name]: e.target.value },
+      });
    };
 
    return (
@@ -45,8 +52,10 @@ const JournalForm = ({ onSubmit }) => {
             <input
                type="text"
                name="title"
+               onChange={onChange}
+               value={values.title}
                className={cn(styles["input-title"], {
-                  [styles["invalid"]]: !formState.isValid.title,
+                  [styles["invalid"]]: !isValid.title,
                })}
             />
          </div>
@@ -59,8 +68,10 @@ const JournalForm = ({ onSubmit }) => {
                id="date"
                type="date"
                name="date"
+               onChange={onChange}
+               value={values.date}
                className={cn(styles["input"], {
-                  [styles["invalid"]]: !formState.isValid.date,
+                  [styles["invalid"]]: !isValid.date,
                })}
             />
          </div>
@@ -73,6 +84,8 @@ const JournalForm = ({ onSubmit }) => {
                id="tag"
                type="text"
                name="tag"
+               onChange={onChange}
+               value={values.tag}
                className={styles["input"]}
             />
          </div>
@@ -82,8 +95,10 @@ const JournalForm = ({ onSubmit }) => {
             id=""
             cols="30"
             rows="10"
+            onChange={onChange}
+            value={values.text}
             className={cn(styles["input"], {
-               [styles["invalid"]]: !formState.isValid.text,
+               [styles["invalid"]]: !isValid.text,
             })}
          ></textarea>
          <Button text="Сохранить" />
