@@ -1,19 +1,37 @@
-// import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./JournalForm.module.css";
 import cn from "classnames";
-import { useState } from "react";
 
 import { CiCalendar } from "react-icons/ci";
 import { CiFolderOn } from "react-icons/ci";
 
 import Button from "../Button/Button";
 
+const INITIAL_STATE = {
+   title: true,
+   text: true,
+   date: true,
+};
+
 const JournalForm = ({ onSubmit }) => {
-   const [formValidateState, setFormValidateState] = useState({
-      title: true,
-      text: true,
-      date: true,
-   });
+   const [formValidateState, setFormValidateState] = useState(INITIAL_STATE);
+
+   useEffect(() => {
+      let timerId;
+      if (
+         !formValidateState.date ||
+         !formValidateState.text ||
+         !formValidateState.title
+      ) {
+         timerId = setTimeout(() => {
+            setFormValidateState(INITIAL_STATE);
+         }, 2000);
+
+         return () => {
+            clearTimeout(timerId);
+         };
+      }
+   }, [formValidateState]);
 
    const addJournalItem = (e) => {
       e.preventDefault();
@@ -70,7 +88,7 @@ const JournalForm = ({ onSubmit }) => {
                type="date"
                name="date"
                className={cn(styles["input"], {
-                  [styles["invalid"]]: !formValidateState.title,
+                  [styles["invalid"]]: !formValidateState.date,
                })}
             />
          </div>
@@ -93,7 +111,7 @@ const JournalForm = ({ onSubmit }) => {
             cols="30"
             rows="10"
             className={cn(styles["input"], {
-               [styles["invalid"]]: !formValidateState.title,
+               [styles["invalid"]]: !formValidateState.text,
             })}
          ></textarea>
          <Button text="Сохранить" />

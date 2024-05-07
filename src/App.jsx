@@ -12,20 +12,20 @@ import JournalAddButton from "./components/JournalAddButton/JournalAddButton";
 import JournalForm from "./components/JournalForm/JournalForm";
 
 function App() {
-   // const INITIAL_DATA = [
-   //    {
-   //       id: 1,
-   //       title: "Подготовка к обновлению ресурсов",
-   //       text: "Горные походы открывают удивительные природные ландшафты",
-   //       date: new Date(),
-   //    },
-   //    {
-   //       id: 2,
-   //       title: "Поход в горы",
-   //       text: "Думал что времени очень много....",
-   //       date: new Date(),
-   //    },
-   // ];
+   //    const INITIAL_DATA = [
+   //       {
+   //          id: 1,
+   //          title: "Подготовка к обновлению ресурсов",
+   //          text: "Горные походы открывают удивительные природные ландшафты",
+   //          date: new Date(),
+   //       },
+   //       {
+   //          id: 2,
+   //          title: "Поход в горы",
+   //          text: "Думал что времени очень много....",
+   //          date: new Date(),
+   //       },
+   //    ];
 
    const [items, setItems] = useState([]);
 
@@ -42,7 +42,6 @@ function App() {
    }, []);
 
    useEffect(() => {
-      console.log(`Записалась задача`);
       if (items.length) {
          localStorage.setItem("data", JSON.stringify(items));
       }
