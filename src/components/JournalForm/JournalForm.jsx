@@ -1,13 +1,14 @@
 import { useEffect, useReducer, useRef } from "react";
+
 import styles from "./JournalForm.module.css";
 import cn from "classnames";
 
 import { CiCalendar } from "react-icons/ci";
 import { CiFolderOn } from "react-icons/ci";
 
-import Button from "../Button/Button";
 import { INITIAL_STATE, formReducer } from "./JournalForm.state";
 
+import Button from "../Button/Button";
 import Input from "../Input/Input";
 
 const JournalForm = ({ onSubmit }) => {
