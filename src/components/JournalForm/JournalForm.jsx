@@ -1,8 +1,12 @@
 // import { useState } from "react";
 import styles from "./JournalForm.module.css";
+import cn from "classnames";
+import { useState } from "react";
+
+import { CiCalendar } from "react-icons/ci";
+import { CiFolderOn } from "react-icons/ci";
 
 import Button from "../Button/Button";
-import { useState } from "react";
 
 const JournalForm = ({ onSubmit }) => {
    const [formValidateState, setFormValidateState] = useState({
@@ -47,29 +51,50 @@ const JournalForm = ({ onSubmit }) => {
 
    return (
       <form className={styles["journal-form"]} onSubmit={addJournalItem}>
-         <input
-            type="text"
-            name="title"
-            className={`${styles["input"]} ${
-               formValidateState.title ? "" : styles["invalid"]
-            }`}
-         />
-         <input
-            type="date"
-            name="date"
-            className={`${styles["input"]} ${
-               formValidateState.date ? "" : styles["invalid"]
-            }`}
-         />
-         <input type="text" name="tag" />
+         <div>
+            <input
+               type="text"
+               name="title"
+               className={cn(styles["input-title"], {
+                  [styles["invalid"]]: !formValidateState.title,
+               })}
+            />
+         </div>
+         <div className={styles["form-row"]}>
+            <label htmlFor="date" className={styles["form-label"]}>
+               <CiCalendar alt="иконка календаря" />
+               <span>Дата</span>
+            </label>
+            <input
+               id="date"
+               type="date"
+               name="date"
+               className={cn(styles["input"], {
+                  [styles["invalid"]]: !formValidateState.title,
+               })}
+            />
+         </div>
+         <div className={styles["form-row"]}>
+            <label htmlFor="tag" className={styles["form-label"]}>
+               <CiFolderOn alt="иконка папки" />
+               <span>Метки</span>
+            </label>
+            <input
+               id="tag"
+               type="text"
+               name="tag"
+               className={styles["input"]}
+            />
+         </div>
+
          <textarea
             name="text"
             id=""
             cols="30"
             rows="10"
-            className={`${styles["input"]} ${
-               formValidateState.text ? "" : styles["invalid"]
-            }`}
+            className={cn(styles["input"], {
+               [styles["invalid"]]: !formValidateState.title,
+            })}
          ></textarea>
          <Button text="Сохранить" />
       </form>
