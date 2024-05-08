@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-
 import "./App.css";
 // layout
 import LeftPanel from "./layout/LeftPanel/LeftPanel";
@@ -10,6 +8,7 @@ import Header from "./components/Header/Header";
 import JournalList from "./components/JournalList/JournalList";
 import JournalAddButton from "./components/JournalAddButton/JournalAddButton";
 import JournalForm from "./components/JournalForm/JournalForm";
+import { useLocalStorage } from "./hooks/useLocalStorage.hook";
 
 function App() {
    //    const INITIAL_DATA = [
@@ -26,35 +25,20 @@ function App() {
    //          date: new Date(),
    //       },
    //    ];
-
-   const [items, setItems] = useState([]);
-
-   useEffect(() => {
-      const data = JSON.parse(localStorage.getItem("data"));
-      if (data) {
-         setItems(
-            data.map((item) => ({
-               ...item,
-               date: new Date(item.date),
-            }))
-         );
+   function mapItems(items) {
+      if (!items) {
+         return [];
       }
-   }, []);
+      return items.map((i) => ({ ...i, date: new Date(i.date) }));
+   }
 
-   useEffect(() => {
-      if (items.length) {
-         localStorage.setItem("data", JSON.stringify(items));
-      }
-   }, [items]);
+   const [items, setItems] = useLocalStorage("data");
 
    const addItem = (item) => {
-      setItems((prevState) => [
-         ...prevState,
+      setItems([
+         ...mapItems(items),
          {
-            id:
-               prevState.length > 0
-                  ? Math.max(...prevState.map((i) => i.id)) + 1
-                  : 1,
+            id: items.length > 0 ? Math.max(...items.map((i) => i.id)) + 1 : 1,
             title: item.title,
             text: item.text,
             date: new Date(item.date),
@@ -67,7 +51,7 @@ function App() {
          <LeftPanel>
             <Header />
             <JournalAddButton />
-            <JournalList items={items} />
+            <JournalList items={mapItems(items)} />
          </LeftPanel>
          <Body>
             <JournalForm onSubmit={addItem} />
