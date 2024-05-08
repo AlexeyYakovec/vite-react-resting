@@ -1,7 +1,4 @@
-import { useState } from "react";
 import { useLocalStorage } from "./hooks/useLocalStorage.hook";
-
-import { UserContext } from "./context/user.context";
 
 import "./App.css";
 
@@ -27,9 +24,8 @@ function App() {
       setItems([
          ...mapItems(items),
          {
+            ...item,
             id: items.length > 0 ? Math.max(...items.map((i) => i.id)) + 1 : 1,
-            title: item.title,
-            text: item.text,
             date: new Date(item.date),
          },
       ]);

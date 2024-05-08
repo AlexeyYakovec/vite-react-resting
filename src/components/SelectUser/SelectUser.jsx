@@ -12,8 +12,8 @@ const SelectUser = () => {
    };
    return (
       <select name="user" id="user" value={userId} onChange={changeUser}>
-         <option value="1">Anton</option>
-         <option value="2">Vasya</option>
+         <option value="1">Спорт</option>
+         <option value="2">Обучение</option>
       </select>
    );
 };

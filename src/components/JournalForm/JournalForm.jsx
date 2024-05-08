@@ -55,6 +55,13 @@ const JournalForm = ({ onSubmit }) => {
       }
    }, [isFormReadyToSubmit, values, onSubmit]);
 
+   useEffect(() => {
+      dispatchForm({
+         type: "SET_VALUE",
+         payload: { userId },
+      });
+   }, [userId]);
+
    const addJournalItem = (e) => {
       e.preventDefault();
       dispatchForm({ type: "SUBMIT" });
