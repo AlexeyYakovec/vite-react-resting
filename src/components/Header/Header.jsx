@@ -1,11 +1,23 @@
+import { useState } from "react";
+
 import SelectUser from "../SelectUser/SelectUser";
-import styles from "./Header.module.css";
+import Button from "../Button/Button";
+import Logo from "../Logo/Logo";
+
+const logos = ["Personal journal", "Personal Todos"];
 
 const Header = () => {
+   const [logoIndex, setLogoIndex] = useState(0);
+   console.log(`Header`);
+
+   const toggleLogo = () => {
+      setLogoIndex((pervState) => Number(!pervState));
+   };
    return (
       <>
-         <h2 className={styles.logo}>Personal Journal</h2>
+         <Logo logo={logos[logoIndex]} />
          <SelectUser />
+         <Button onClick={toggleLogo}>Сменить лого</Button>
       </>
    );
 };

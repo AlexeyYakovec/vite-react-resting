@@ -19,6 +19,7 @@ import { mapItems } from "./utils/mapItemsForm";
 
 function App() {
    const [items, setItems] = useLocalStorage("data");
+   console.log(`App`);
 
    const addItem = (item) => {
       setItems([

@@ -130,7 +130,7 @@ const JournalForm = ({ onSubmit }) => {
                [styles["invalid"]]: !isValid.text,
             })}
          ></textarea>
-         <Button text="Сохранить" />
+         <Button>Сохранить</Button>
       </form>
    );
 };
