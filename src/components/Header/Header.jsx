@@ -8,7 +8,6 @@ const logos = ["Personal journal", "Personal Todos"];
 
 const Header = () => {
    const [logoIndex, setLogoIndex] = useState(0);
-   console.log(`Header`);
 
    const toggleLogo = () => {
       setLogoIndex((pervState) => Number(!pervState));

@@ -20,7 +20,9 @@ import { mapItems } from "./utils/mapItemsForm";
 
 function App() {
    const [items, setItems] = useLocalStorage("data");
-   const [selectedItem, setSelectedItem] = useState({});
+   const [selectedItem, setSelectedItem] = useState();
+   console.log(`selectedItem: `, selectedItem);
+   console.log(`items: `, items);
 
    const addItem = (item) => {
       if (!item.id) {

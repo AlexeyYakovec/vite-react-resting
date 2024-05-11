@@ -20,6 +20,11 @@ const JournalForm = ({ onSubmit, data }) => {
    const textRef = useRef();
    const { userId } = useContext(UserContext);
 
+   const addJournalItem = (e) => {
+      e.preventDefault();
+      dispatchForm({ type: "SUBMIT" });
+   };
+
    const focusError = (isValid) => {
       switch (true) {
          case !isValid.title:
@@ -72,11 +77,6 @@ const JournalForm = ({ onSubmit, data }) => {
          payload: { userId },
       });
    }, [userId]);
-
-   const addJournalItem = (e) => {
-      e.preventDefault();
-      dispatchForm({ type: "SUBMIT" });
-   };
 
    const onChange = (e) => {
       dispatchForm({
