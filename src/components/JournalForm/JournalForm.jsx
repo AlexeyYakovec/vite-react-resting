@@ -12,7 +12,7 @@ import Button from "../Button/Button";
 import Input from "../Input/Input";
 import { UserContext } from "../../context/user.context";
 
-const JournalForm = ({ onSubmit }) => {
+const JournalForm = ({ onSubmit, data }) => {
    const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
    const { isValid, isFormReadyToSubmit, values } = formState;
    const titleRef = useRef();
@@ -35,6 +35,13 @@ const JournalForm = ({ onSubmit }) => {
    };
 
    useEffect(() => {
+      dispatchForm({
+         type: "SET_VALUE",
+         payload: { ...data },
+      });
+   }, [data]);
+
+   useEffect(() => {
       let timerId;
       if (!isValid.date || !isValid.text || !isValid.title) {
          focusError(isValid);
@@ -52,8 +59,12 @@ const JournalForm = ({ onSubmit }) => {
       if (isFormReadyToSubmit) {
          onSubmit(values);
          dispatchForm({ type: "CLEAR" });
+         dispatchForm({
+            type: "SET_VALUE",
+            payload: { userId },
+         });
       }
-   }, [isFormReadyToSubmit, values, onSubmit]);
+   }, [isFormReadyToSubmit, values, onSubmit, userId]);
 
    useEffect(() => {
       dispatchForm({
@@ -99,10 +110,15 @@ const JournalForm = ({ onSubmit }) => {
                name="date"
                ref={dateRef}
                onChange={onChange}
-               value={values.date}
+               value={
+                  values.date
+                     ? new Date(values.date).toISOString().slice(0, 10)
+                     : ""
+               }
                isValid={isValid.date}
             />
          </div>
+
          <div className={styles["form-row"]}>
             <label htmlFor="tag" className={styles["form-label"]}>
                <CiFolderOn alt="иконка папки" />
