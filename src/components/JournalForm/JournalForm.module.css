@@ -26,6 +26,28 @@ svg {
    height: 21px;
 }
 
+.delete {
+   margin: 0;
+}
+
+.deleteButton {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   transition: 0.4s ease;
+   cursor: pointer;
+   border: none;
+   outline: none;
+   padding: 6px;
+   border-radius: 50%;
+   background-color: transparent;
+   border: 1px solid white;
+}
+
+.deleteButton:hover {
+   opacity: 0.6;
+}
+
 .form-label {
    display: flex;
    align-items: center;
